@@ -1,0 +1,71 @@
+name: Sync Holidays
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # Run at 00:00 on the 1st of every month
+  workflow_dispatch: # Allow running manually
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Use GITHUB_TOKEN or a PAT with push permissions
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync Holidays Data
+        env:
+          BOT_API_AUTH: ${{ secrets.BOT_API_AUTH }}
+        run: npm run sync
+
+      - name: Check for changes
+        id: git-check
+        run: |
+          if git diff --exit-code data/holidays.json > /dev/null; then
+            echo "changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Build, Version and Publish
+        if: steps.git-check.outputs.changes == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          # Configure Git
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Stage the JSON file
+          git add data/holidays.json
+          
+          # Run build to bundle the new JSON file into dist/
+          npm run build
+          
+          # Bump patch version and commit
+          npm version patch -m "chore(data): sync holidays and bump version to %s [skip ci]"
+          
+          # Push commit and tags to the repository
+          git push origin HEAD:${{ github.ref_name }} --follow-tags
+          
+          # Publish to NPM if NPM_TOKEN is present
+          if [ -n "$NODE_AUTH_TOKEN" ]; then
+            npm publish --access public
+          else
+            echo "NPM_TOKEN is not set, skipping NPM publish."
+          fi

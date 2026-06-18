@@ -1,0 +1,51 @@
+{
+  "name": "thai-financial-holiday",
+  "version": "1.0.0",
+  "description": "Thai Financial Institution Holidays synced from Bank of Thailand API",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist",
+    "data/holidays.json"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean",
+    "test": "vitest run",
+    "sync": "ts-node scripts/sync.ts"
+  },
+  "keywords": [
+    "thai",
+    "thailand",
+    "holiday",
+    "financial",
+    "bank",
+    "bot"
+  ],
+  "author": "KriZad",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KriZad/thai-financial-holiday.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KriZad/thai-financial-holiday/issues"
+  },
+  "homepage": "https://github.com/KriZad/thai-financial-holiday#readme",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "axios": "^1.6.7",
+    "dotenv": "^16.4.5",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.3.3",
+    "vitest": "^1.3.1"
+  }
+}
