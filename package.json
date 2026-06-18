@@ -68,7 +68,7 @@
   "bugs": {
     "url": "https://github.com/krizad/thai-financial-holiday-helper-package/issues"
   },
-  "homepage": "https://krizad.github.io/thai-financial-holiday-demo/",
+  "homepage": "https://krizad.github.io/thai-financial-holiday-helper-demo/",
   "publishConfig": {
     "access": "public"
   },

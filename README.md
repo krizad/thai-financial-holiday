@@ -2,7 +2,7 @@
 
 [![npm version](https://img.shields.io/npm/v/@krizad/thai-financial-holiday-helper.svg)](https://www.npmjs.com/package/@krizad/thai-financial-holiday-helper)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Interactive Demo](https://img.shields.io/badge/demo-interactive-brightgreen.svg)](https://krizad.github.io/thai-financial-holiday-demo/)
+[![Interactive Demo](https://img.shields.io/badge/demo-interactive-brightgreen.svg)](https://krizad.github.io/thai-financial-holiday-helper-demo/)
 
 ข้อมูลวันหยุดทางการเงินของสถาบันการเงินไทย (Bank of Thailand / ธนาคารแห่งประเทศไทย) อัปเดตข้อมูลอัตโนมัติทุกวันที่ 1 ของเดือน มีฟังก์ชันใช้งานง่ายและรองรับข้อมูลย้อนหลัง 5 ปี (รวมปีปัจจุบัน) ในรูปแบบ ESM, CommonJS และ TypeScript แบบแกะกล่อง
 
