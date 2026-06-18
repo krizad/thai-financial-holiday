@@ -8,3 +8,4 @@ yarn-error.log*
 .vitest/
 coverage/
 .DS_Store
+*.tgz
